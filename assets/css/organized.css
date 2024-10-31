@@ -1,0 +1,545 @@
+
+/**
+ * jquery.todoList
+ */
+.organized-todo {
+  position: relative;
+  min-width: 15em;
+}
+.organized-todo *,
+.organized-todo *:before,
+.organized-todo *:after {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.organized-todo .organized-todo-title {
+  padding: .5em 2em .5em .5em;
+  position: relative;
+  max-height: 5em;
+  overflow: hidden;
+}
+.organized-todo .organized-todo-title-text {
+  display: inline-block;
+  width: 100%;
+}
+.organized-todo .organized-todo-menu-show {
+  display: block;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  font-weight: 900;
+  cursor: pointer;
+  vertical-align: middle;
+  font-size: .9em;
+  height: 6em;
+  padding: .2em;
+}
+.organized-todo .organized-todo-menu {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 10em;
+  padding: .2em;
+  z-index: 1;
+}
+.organized-todo .organized-todo-menu-actions {
+  position: absolute;
+  right: .2em;
+  top: .2em;
+}
+.organized-todo .organized-todo-menu-actions .organized-todo-action {
+  padding: .2em;
+  display: inline-block;
+}
+.organized-todo .organized-todo-menu-items {
+  max-height: 10em;
+  overflow-y: auto;
+  margin: 2em 0em 1em;
+}
+.organized-todo .organized-todo-menu-items a {
+  display: block;
+  padding: .2em;
+  margin-bottom: 0.5em;
+}
+.organized-todo .organized-todo-footer {
+  position: relative;
+}
+.organized-todo .organized-todo-action {
+  cursor: pointer;
+  text-decoration: none;
+}
+.organized-todo .organized-todo-button {
+  display: inline-block;
+}
+.organized-todo .organized-todo-button-confirm {
+  display: inline-block;
+  margin-top: 5px;
+  font-weight: 600;
+  background: #d54e21;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #fff;
+  margin-left: 4px;
+  cursor: pointer;
+  border: none
+}
+.organized-todo .organized-todo-button-cancel {
+  display: inline-block;
+  padding: .2em;
+  height: 6em;
+}
+.organized-todo-item-action-remove-cancel .dashicons {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+.organized-todo .organized-todo-add {
+  padding: 0 27px 0 0;
+  position: relative;
+  border: none;
+}
+.organized-todo .organized-todo-add-input,
+.organized-todo .organized-todo-add-action {
+  line-height: 1.5em;
+  display: inline-block;
+}
+.organized-todo .organized-todo-add-input {
+  width: 100%;
+  border: none;
+}
+.organized-todo .organized-todo-add-input-text {
+  width: 100%;
+  border: none;
+}
+.organized-todo .organized-todo-add-action {
+  display: inline-block;
+  text-decoration: none;
+  overflow: hidden;
+  font-weight: 900;
+  padding: 0em;
+  position: absolute;
+  top: 6px;
+  right: 0;
+}
+.organized-todo .organized-todo-edit {
+  position: relative;
+}
+.organized-todo .organized-todo-edit-input {
+  width: 100%;
+  padding-right: 28px;
+}
+.organized-todo .organized-todo-edit-input input {
+  width: 100%;
+}
+.organized-todo .organized-todo-edit-save {
+  background-repeat: no-repeat;
+  display: inline-block;
+  position: absolute;
+  right: 7px;
+  top: 5px;
+  text-align: center;
+  cursor: pointer;
+}
+.organized-todo .organized-todo-item {
+  margin: 5px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+.organized-todo .organized-todo-item-title {
+  border-bottom: medium none;
+  border-top: medium none;
+  border-right: medium none;
+  padding: 0.5em;
+  margin-left: 30px;
+  padding-right: 23px;
+  overflow: hidden;
+}
+.organized-todo .organized-todo-item-title-text {
+  display: inline-block;
+  width: 100%;
+}
+.organized-todo .organized-todo-item-actions-left {
+  display: inline-block;
+  position: absolute;
+  top: 7px;
+  left: 6px;
+}
+.organized-todo .organized-todo-item-actions-right {
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 6em;
+}
+.organized-todo .organized-todo-item-action-remove {
+  background-repeat: no-repeat;
+  display: inline-block;
+  text-align: center;
+  overflow: hidden;
+  position: absolute;
+  right: 0px;
+  top: 6px;
+  cursor: pointer;
+  color: #aaa;
+}
+.organized-todo .organized-todo-item-action-remove-confirm {
+  background-repeat: no-repeat;
+  text-indent: -1000px;
+  text-align: center;
+  overflow: hidden;
+  display: inline-block;
+  padding: .2em;
+  width: 19px;
+  height: 24px;
+  /* image from: https://www.iconfinder.com/icons/284073/bin_delete_editor_recycle_trash_icon#size=24 */
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAAYCAYAAAAYl8YPAAACTUlEQVQ4T62VS0iVURSFVRpYGCnlxKIGUdBLbRA9zGgmaYI0SKVhEWVENCjTgVGgUhhElBrmSAslGvlqJhg9iAbaAyVKpHQghqFYEkH2LTkH9v05XW/ggcVZe+91193/Oec/f3JS/JFCeZWR/IT/+ddPkuN4qTYCthrNG/ieeGYTFLOW6DCR8rj+fQqsS0S9hGZKZmkgdRnM5mWmRf4IVjhDLfB2MAxU/wV2gE+uPsu8G3w2DXxXzm/AV4INprgGrrVU1zJLB/OuLm0+GDP6d/Bsb/aKYK8pboS/BOsDZu/JnQBDRv8UfsSbPSE4Zoq74J1Ajxvt7Dm5KjBg9K3wU97sDsF5UzwIvwkOBMx6yDWDLqO/Dr/qzS4T3DDFo/Bzaj1g9ohcH2gz+tPwFm+mNWg3RcXFoCxg1kTuA7hr9EXwXm92mKDfFCvg2eBMwKye3ByoNfpc+JA320Kgs+ZHNUTHozJgdoXcWnDJ6DPh37yZboYfpqj1mwF1AbOz5HRotU4a2u2VYMHeGtMkMpxAu/UWNAbMysmVgFKnHWXeLG7NdIp3OkEHs7b+YcCskNwFUOC0z5gPRc10ir1AW38PdAfM8sjdAvvMH6vbmM4eEJ90ghfMWnz9a/QNUPePwTanbWBe3Az7mNeIa5xA50hnTI8eNdOF8Br4C/Ui/HbUTLtz35npxtgPvgTMVpObBP7bcNx1GtOZFlbvnYY+HFo/PeZvoCtHN8sC0DdA3wI/9P7qhokxyyEeNKJE6Sb3BDFmOtVaq/8Z6lR3n7pP+guXqYbxgVDCfwAAAABJRU5ErkJggg==");
+}
+.organized-todo .organized-todo-item-checkbox {
+  background-repeat: no-repeat;
+  display: inline-block;
+  text-indent: -1000px;
+  text-align: center;
+  overflow: hidden;
+  height: 20px;
+  width: 20px;
+  opacity: .7;
+  cursor: pointer;
+  border: 2px solid #ccc;
+}
+.organized-todo .organized-todo-item-done .organized-todo-item-checkbox, .organized-todo .organized-todo-item-done .organized-todo-item-checkbox::before {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  font-size: 24px;
+  line-height: 1;
+  font-family: dashicons;
+  text-decoration: inherit;
+  font-weight: normal;
+  font-style: normal;
+  vertical-align: top;
+  text-align: center;
+  -webkit-transition: color .1s ease-in 0;
+  transition: color .1s ease-in 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.organized-todo .organized-todo-item-done .organized-todo-item-checkbox {
+  text-indent: 0;
+  overflow: visible;
+
+}
+.organized-todo .organized-todo-item-done .organized-todo-item-checkbox:before {
+  content: "\f147";
+  margin: -4px 0 0 -4px;
+}
+
+.organized-todo .organized-todo-item-done .organized-todo-item-title-text {
+  text-decoration: line-through;
+  color: #888;
+}
+.organized-todo .organized-todo-item-done:hover .organized-todo-item-title-text {
+  text-decoration: none;
+}
+.organized-todo .organized-todo-hide-done .organized-todo-item-done {
+  display: none;
+}
+
+
+
+
+#organized { margin-top: 20px; }
+#organized .col-left { position:relative; min-height:1px; padding: 0 30px 0 0; float:left; width:100%; }
+#organized .col-right { position:relative; min-height:1px; float:left; width:100%; }
+@media (min-width: 768px) and (max-width: 991px) {    
+    #organized .col-left { width:300px; }
+    #organized .col-right { width:calc(100% - 330px);}        
+}                                          
+@media (min-width: 992px) and (max-width: 1199px) {
+    #organized .col-left { width:300px; }
+    #organized .col-right { width:calc(100% - 330px);}
+}
+@media (min-width: 1200px) {
+    #organized .col-left { width:300px; }
+    #organized .col-right { width:calc(100% - 330px);}
+}
+
+#organized .postbox h2 {
+	border-bottom: 1px solid #eee;
+}
+#organized .postbox h2 .dashicons {
+	float: right;
+}
+#organized .input-wrap {
+  display: inline-block;
+  margin: 5px 0;
+  width: 100%;
+}
+#organized .input-wrap .half {
+  display: inline-block;
+  margin: 0 2% 0 0;
+  width: 49%;
+  float: left;
+}
+#organized .input-wrap .half:last-child {
+  margin: 0;
+}
+#organized .input-wrap .select2-selection, #organized .input-wrap input[type="text"], #organized .input-wrap textarea, #organized .input-wrap #color {
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 14px;
+  height: auto;
+  border: 1px solid #ddd;
+  box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+  background-color: #fff;
+  color: #32373c;
+  outline: none;
+  transition: 0.05s border-color ease-in-out;
+  border-radius: 0;
+}
+#organized .input-wrap input[type="text"]:focus, #organized .input-wrap textarea:focus {
+  box-shadow: 0 0 4px rgba(38, 160, 242,0.3);
+  border: 1px solid rgba(38, 160, 242, 0.4);
+}
+#organized .input-wrap .select2-selection {
+  padding: 0;
+  min-height: 20px;
+}
+#organized .input-wrap .select2-selection li {
+  margin-bottom: 0;
+}
+
+#organized .input-wrap #color {
+  display: inline;
+  width: 80px !important;
+  padding: 3px 4px;
+  margin-top: 0;
+}
+
+#organized .input-wrap .wp-picker-container {
+  padding: 0px;
+  float: right;
+}
+#organized .input-wrap .wp-picker-container.wp-picker-active {
+  background: #fff;
+  padding: 10px;
+  z-index: 999;
+  position: relative;
+  box-shadow: 0 0 2px rgba(0,0,0,0.4)
+}
+#organized .input-wrap .wp-color-result {
+  margin: 0;
+}
+#organized .input-wrap .wp-picker-input-wrap {
+  float: right;
+}
+
+
+
+#organized .input-wrap #file-container img {
+  max-width: 120px;
+}
+#organized .organized-message {
+  padding: 6px 16px;
+  background: #fff;
+  font-weight: bold;
+  border-left: 4px solid #00a0d2;
+  -webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+}
+
+
+.sort-wrapper *, .sort-wrapper  *:before, .sort-wrapper  *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.sortable {
+  width: 32%;
+  min-height: 20px;
+  list-style-type: none;
+  margin-right: 2%;
+  padding: 0;
+  float: left;
+  border-bottom: 2px dashed #ddd;
+  margin-top: 0;
+  background: #f9f9f9;
+}
+
+.sortable.cols-1 {
+  width: 100%;
+  margin: 0;
+}
+.sortable.cols-2 {
+  width: 49%;
+  margin-right: 2%;
+}
+.sortable.cols-3 {
+  width: 32%;
+  margin-right: 2%;
+}
+.sortable.cols-4 {
+  width: 24%;
+  margin-right: 1.333%;
+}
+.sortable:last-child {
+  margin: 0 !important;
+}
+.sortable li.thing {
+  margin: 0 0 7px 0;
+  padding: 7px 8px 4px;
+  width: auto;
+  display: block;
+  min-height: 46px;
+  background: #fff;
+  border: none;
+  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  border-bottom: 3px solid #fff;
+}
+.sortable li.thing .handle {
+  width: calc(100% - 50px);
+  padding: 1px 0 0 0;
+  background: transparent;
+  display: block;
+  position: relative;
+  z-index: 9999;
+  float: left;
+  margin: 3px 0 0;
+  border-top: 2px dotted rgba(0,0,0,0.15);
+  border-bottom: 2px dotted rgba(0,0,0,0.15);
+}
+.sortable li.thing .handle:hover {
+  cursor: move;
+  border-top: 2px dotted rgba(0,0,0,0.3);
+  border-bottom: 2px dotted rgba(0,0,0,0.3);
+}
+
+
+.sortable li.thing .edit, .sortable li.thing .delete {
+  margin-top: -4px;
+  margin-right: -3px;
+  position: relative;
+  float: right;
+  cursor: pointer;
+}
+.sortable li.thing .edit {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.sortable li.thing .edit .dashicons, .sortable li.thing .delete .dashicons {
+  color: #bbb;
+}
+.sortable li.thing .edit:hover .dashicons, .sortable li.thing .delete:hover .dashicons {
+  color: #777;
+}
+
+.sortable li.thing .inner .confirm {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #fff;
+  padding: 4px 0px 4px 8px;
+  box-shadow: 0 0 5px 8px rgba(255,255,255,0.9);
+  display: block;
+  width: auto;
+  z-index: 99;
+}
+.sortable li.thing .confirm .confirm-delete {
+  font-weight: 600;
+  background: #d54e21;
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: #fff;
+  margin-left: 4px;
+  cursor: pointer
+}
+.sortable li.thing .confirm .cancel-delete {
+  color: #0073aa;
+  cursor: pointer
+}
+
+
+.sortable li.thing .inner {
+  width: 100%;
+  display: inline-block;
+  margin-top: 3px;
+  padding: 0 2px;
+  position: relative;
+}
+
+.sortable li.thing .title {
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 8px
+}
+
+.sortable li.thing .file {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+}
+.sortable li.thing .file img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+  float: left;
+  margin-right: 20px;
+}
+.sortable li.thing .file .icons {
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+}
+.sortable li.thing .file .icons .dashicons {
+  color: #fff;
+  text-shadow: 0 0 1px rgba(0,0,0,0.7);
+  width: 16px;
+  font-size: 18px;
+}
+.sortable li.thing .file .data span {
+  display: block;
+  word-wrap: break-word;
+  width: calc(100% - 70px);
+  float: left;
+}
+
+.sortable li .todos {
+  margin: 10px 0;
+}
+.sortable li .todos li {
+  margin-bottom: 3px;
+}
+.sortable li .todos li.true .text {
+  color: #aaa;
+  text-decoration: line-through;
+}
+.sortable li .todos li.true .dashicons::before {
+  content: "\f147";
+}
+.sortable li .todos li.false .dashicons::before {
+  content: "\f460";
+}
+
+.sortable li .start_date {
+  margin: 2px 0;
+}
+.sortable li .end_date {
+  margin: 2px 0;
+}
+
+.sortable li .tags {
+  margin: 10px 0 0;
+  display: inline-block
+}
+.sortable li .tags li {
+  float: left;
+  margin: 0 5px 0 0;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 12px
+}
+
